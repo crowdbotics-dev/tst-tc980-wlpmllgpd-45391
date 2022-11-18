@@ -1,3 +1,7 @@
+from rest_framework import viewsets
+from home.models import Addresswpvappdcuk
+from .serializers import AddresswpvappdcukSerializer
+from rest_framework import authentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.authtoken.models import Token
@@ -28,3 +32,8 @@ class LoginViewSet(ViewSet):
         token, created = Token.objects.get_or_create(user=user)
         user_serializer = UserSerializer(user)
         return Response({"token": token.key, "user": user_serializer.data})
+
+class AddresswpvappdcukViewSet(viewsets.ModelViewSet):
+    serializer_class = AddresswpvappdcukSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = Addresswpvappdcuk.objects.all()
